@@ -1,0 +1,35 @@
+# ===============================================================
+# Project Name: Tor TCP Chain Balancer
+# Author: Vladislav Tislenko aka keklick1337
+# Date: 2 February 2025
+# ===============================================================
+
+version: "3.8"
+
+services:
+  tor_forward:
+    build: ./tor_forward
+    container_name: tor_forward
+    environment:
+      - HOST_IP=host.docker.internal
+      - HOST_PORT=5000
+      - TOR_INSTANCES=5
+      - RANDOM_PORT_START=20000
+    volumes:
+      - ./data/tor_forward:/var/lib/tor/hidden_services
+
+  haproxy_receiver:
+    build: ./haproxy_receiver
+    container_name: haproxy_receiver
+    environment:
+      - HAPROXY_LISTEN_PORT=9080
+      - BASE_LOCAL_PORT=30000
+      - BASE_SOCKS_PORT=9050
+      - STATS_PORT=9090
+      - STATS_USER=admin
+      - STATS_PASS=mypassword
+    volumes:
+      - ./data/tor_forward/domains.list:/etc/domains.list:ro
+    ports:
+      - "9080:9080"   # HAProxy frontend
+      - "9090:9090"   # Stats panel

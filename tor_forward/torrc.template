@@ -1,0 +1,9 @@
+# ===============================================================
+# Project Name: Tor TCP Chain Balancer
+# Author: Vladislav Tislenko aka keklick1337
+# Date: 2 February 2025
+# ===============================================================
+
+ControlPort 0
+SocksPort 0
+Log notice stdout

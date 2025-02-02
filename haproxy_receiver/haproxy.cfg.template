@@ -1,0 +1,36 @@
+# ===============================================================
+# Project Name: Tor TCP Chain Balancer
+# Author: Vladislav Tislenko aka keklick1337
+# Date: 2 February 2025
+# ===============================================================
+
+global
+    log stdout local0
+    maxconn 4096
+
+defaults
+    log global
+    mode tcp
+    option tcplog
+    timeout connect 5s
+    timeout client  30s
+    timeout server  30s
+
+frontend tor_frontend
+    bind *:%%LISTEN_PORT%%
+    mode tcp
+    default_backend tor_backends
+
+backend tor_backends
+    mode tcp
+    balance roundrobin
+%%BACKEND_SERVERS%%
+
+listen stats
+    bind *:%%STATS_PORT%%
+    mode http
+    stats enable
+    stats uri /stats
+    stats realm "HAProxy Stats"
+    stats auth %%STATS_USER%%:%%STATS_PASS%%
+    stats refresh 5s
