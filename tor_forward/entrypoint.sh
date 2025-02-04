@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # ===============================================================
 # Project Name: Tor TCP Chain Balancer
-# Author: Vladislav Tislenko aka keklick1337
-# Date: 2 February 2025
+# Author: keklick1337 https://github.com/keklick1337/tortcb
+# Date: 4 February 2025
 # ===============================================================
 
 set -e

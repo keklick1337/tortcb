@@ -1,9 +1,3 @@
-# ===============================================================
-# Project Name: Tor TCP Chain Balancer
-# Author: Vladislav Tislenko aka keklick1337
-# Date: 2 February 2025
-# ===============================================================
-
 global
     log stdout local0
     maxconn 4096
